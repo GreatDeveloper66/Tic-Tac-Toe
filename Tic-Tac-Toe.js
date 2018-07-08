@@ -37,24 +37,31 @@ $(document).ready(function() {
     ]
   };
 
-  function attachGameReset() {
-    $("#restartGame").click(function() {
-      location.reload(true);
-    });
-  }
+function attachGameReset() {
+  $("#restartGame").click(function() {
+    clearBoard();
+    updateDisplay();
+    $("#message").html(
+      "Would you like to play as X or O?" +
+        '<a class="btn btn-primary" id="choseX">X</a>' +
+        " " +
+        '<a class="btn btn-primary" id = "choseO">O</a>'
+    );
 
-  //sets turns at beginning of game
-  function setTurns() {
-    if (userChoseX()) {
+    $("#choseX").click(function() {
       userisX();
       gameBoard.usersTurn = true;
-      gameBoard.computersTurn = false;
-    } else {
+      $("#message").html("Playing as X");
+      enableAll();
+    });
+    $("#choseO").click(function() {
       userisO();
       gameBoard.usersTurn = true;
-      gameBoard.computersTurn = false;
-    }
-  }
+      $("#message").html("Playing as O");
+      enableAll();
+    });
+  });
+}
 
   //this function returns the index of all empty squares
   function emptySquares() {
@@ -352,3 +359,4 @@ $(document).ready(function() {
     scanBoard();
   });
 });
+
